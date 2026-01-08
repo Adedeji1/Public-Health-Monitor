@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Header } from "./layout/Header";
+import { Footer } from "./layout/Footer";
+import { ControlPanel } from "./features/healthData/components/ControlPanel";
+import { HealthChart } from "./features/healthData/components/HealthChart";
+import { Summary } from "./features/healthData/components/Summary";
+import { healthData } from "./features/healthData/data";
+import { MetricType } from "./features/healthData/types";
+import { ControlPanel } from "./component/ControlPanel";
+import { HealthChart } from "./component/HealthChart";
+import { Summary } from "./component/Summary";
+import { healthData } from "./component/data/types";
+import { MetricType } from "./interface";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [metric, setMetric] = useState<MetricType>("infection_rate");
+
+  const selectedMetric = healthData.find(
+    (m) => m.metric === metric
+  );
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Header />
 
-export default App
+      <main>
+        <ControlPanel metric={metric} onChange={setMetric} />
+
+        {selectedMetric && (
+          <>
+            <HealthChart
+              data={selectedMetric.data}
+              unit={selectedMetric.unit}
+            />
+            <Summary metric={selectedMetric} />
+          </>
+        )}
+      </main>
+
+      <Footer />
+    </>
+  );
+}
