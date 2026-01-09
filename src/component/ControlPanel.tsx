@@ -1,4 +1,4 @@
-import { MetricType } from "../interface";
+import type { MetricType } from "../interface";
 
 interface Props {
   metric: MetricType;

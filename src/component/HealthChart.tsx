@@ -1,4 +1,4 @@
-import { HealthDataPoint } from "../interface";
+import type { HealthDataPoint } from "../interface";
 
 interface Props {
   data: HealthDataPoint[];

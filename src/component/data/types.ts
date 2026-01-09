@@ -1,4 +1,4 @@
-import { HealthMetric } from "../../interface";
+import type { HealthMetric } from "../../interface";
 
 export const healthData: HealthMetric[] = [
   {

@@ -1,4 +1,4 @@
-import { HealthMetric } from "../interface";
+import type { HealthMetric } from "../interface";
 
 interface Props {
   metric: HealthMetric;
